@@ -24,8 +24,21 @@ class CommentController extends Controller
 
     public function create(Request $request)
     {
-        $this->commentsRepository->create($request->input());
+        if ($this->isValidRequest($request))
+            $this->commentsRepository->create($request->input());
 
         return redirect(route('home'));
+    }
+
+    private function isValidRequest(Request $request)
+    {
+        $validatedData = $request->validate([
+            'content' => 'required',
+        ]);
+
+        if (!$validatedData)
+            return false;
+
+        return true;
     }
 }
