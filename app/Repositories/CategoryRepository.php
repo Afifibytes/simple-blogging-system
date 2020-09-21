@@ -21,6 +21,6 @@ class CategoryRepository extends BaseRepository
 
     public function create(array $attributes): Model
     {
-        return;
+        return $this->model;
     }
 }
