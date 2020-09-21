@@ -1,6 +1,6 @@
-##This is a simple blogging system.
+## This is a simple blogging system.
 
-###simple steps for running the project:
+### simple steps for running the project:
 
 - Create a local MySQL database.
 - Run Database Migrations ```php artisan migrate```.
