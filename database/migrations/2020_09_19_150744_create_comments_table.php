@@ -19,6 +19,7 @@ class CreateCommentsTable extends Migration
             $table->bigInteger('article_id')->unsigned();
             $table->text('content');
             $table->timestamp('published_at');
+            $table->timestamps();
         });
     }
 

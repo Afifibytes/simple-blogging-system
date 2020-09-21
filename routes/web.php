@@ -13,6 +13,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/articles', 'ArticlesController@index');
+Route::get('/articles/new', 'ArticlesController@new');
+Route::post('/articles/save', ['as' => 'article.save', 'uses' => 'ArticlesController@save']);
+
+Route::post('/comments/save', ['as' => 'comment.save', 'uses' => 'CommentController@save']);
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
