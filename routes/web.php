@@ -15,9 +15,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/articles', 'ArticlesController@index');
 Route::get('/articles/new', 'ArticlesController@new');
-Route::post('/articles/save', ['as' => 'article.save', 'uses' => 'ArticlesController@save']);
+Route::post('/articles/save', ['as' => 'article.save', 'uses' => 'ArticlesController@create']);
 
-Route::post('/comments/save', ['as' => 'comment.save', 'uses' => 'CommentController@save']);
+Route::post('/comments/save', ['as' => 'comment.save', 'uses' => 'CommentController@create']);
 
 Auth::routes();
 

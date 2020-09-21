@@ -3,29 +3,39 @@
 
 namespace App\Http\Controllers;
 
-
-use App\Models\Article;
-use App\Models\Category;
+use App\Repositories\ArticlesRepository;
+use App\Repositories\CategoryRepository;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 
 class ArticlesController extends BaseController
 {
+    /**
+     * @var ArticlesRepository
+     */
+    protected $articlesRepository;
+
+    /**
+     * @var CategoryRepository
+     */
+    protected $categoryRepository;
+
+    public function __construct(ArticlesRepository $articlesRepository, CategoryRepository $categoryRepository)
+    {
+        $this->articlesRepository = $articlesRepository;
+        $this->categoryRepository = $categoryRepository;
+    }
+
     public function new()
     {
-        $categories = Category::all();
+        $categories = $this->categoryRepository->all();
 
         return view('addArticle', ['categories' => $categories]);
     }
 
-    public function save(Request $request)
+    public function create(Request $request)
     {
-        $article = new Article;
-        $article->title = $request->get('title');
-        $article->body  = $request->get('body');
-        $article->save();
-
-        $article->categories()->attach($request->get('categories'));
+        $this->articlesRepository->create($request->input());
 
         return redirect(route('home'));
     }

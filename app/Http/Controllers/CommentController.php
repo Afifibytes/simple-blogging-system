@@ -3,19 +3,28 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comment;
+use App\Repositories\CommentsRepository;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
-    public function save(Request $request)
+    /**
+     * @var CommentsRepository
+     */
+    protected $commentsRepository;
+
+    /**
+     * CommentController constructor.
+     * @param CommentsRepository $commentsRepository
+     */
+    public function __construct(CommentsRepository $commentsRepository)
     {
-        $comment = new Comment;
-        $comment->content = $request->get('content');
-        $comment->user_id = $request->get('user');
+        $this->commentsRepository = $commentsRepository;
+    }
 
-        $comment->article_id = $request->get('article');
-
-        $comment->save();
+    public function create(Request $request)
+    {
+        $this->commentsRepository->create($request->input());
 
         return redirect(route('home'));
     }
